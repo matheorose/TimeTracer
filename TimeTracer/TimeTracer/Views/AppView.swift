@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AppView: View {
     let app: Application
-    var day: WeekDay
+    @EnvironmentObject var timetracerVM: TimeTracerViewModel
     
     var body: some View {
         HStack{
@@ -24,7 +24,7 @@ struct AppView: View {
             
             Spacer()
             
-            if let seconds = app.dailyScreenTime[day] {
+            if let seconds = app.dailyScreenTime[timetracerVM.selectedDay] {
                 Text("\(seconds / 3600)h \(seconds % 3600 / 60)min")
                     .foregroundColor(.gray)
                     .font(.subheadline)
@@ -44,5 +44,6 @@ struct AppView: View {
 }
 
 #Preview {
-    AppView(app: Application.testData[0], day: .mon)
+    AppView(app: Application.testData[0])
+        .environmentObject(TimeTracerViewModel())
 }

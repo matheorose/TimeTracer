@@ -28,7 +28,8 @@ struct ContentView: View {
 
                         VStack(spacing: 12) {
                             ForEach(timetracerVM.apps) { app in
-                                AppView(app: app, day: currentDay)
+                                AppView(app: app)
+                                    .environmentObject(timetracerVM)
                             }
                         }
                         .padding(.horizontal)
