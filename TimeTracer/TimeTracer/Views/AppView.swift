@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppView: View {
     let app: Application
+    var day: WeekDay
     
     var body: some View {
         HStack{
@@ -23,8 +24,11 @@ struct AppView: View {
             
             Spacer()
             
-            Text(formattedScreenTime())
-                .font(.subheadline)
+            if let seconds = app.dailyScreenTime[day] {
+                Text("\(seconds / 3600)h \(seconds % 3600 / 60)min")
+                    .foregroundColor(.gray)
+                    .font(.subheadline)
+            }
         }
         .padding(.vertical, 8)
         .padding(.horizontal)
@@ -32,13 +36,13 @@ struct AppView: View {
         .cornerRadius(15)
     }
     
-    private func formattedScreenTime() -> String {
-        let hours = app.screenTime / 60
-        let minutes = app.screenTime % 60
+    private func formattedScreenTime(for seconds: Int) -> String {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
         return "\(hours)h \(minutes)min"
     }
 }
 
 #Preview {
-    AppView(app: Application.testData[0])
+    AppView(app: Application.testData[0], day: .mon)
 }

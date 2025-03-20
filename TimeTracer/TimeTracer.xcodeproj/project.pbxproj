@@ -17,6 +17,10 @@
 		5FAF39102D8AA679006A86A1 /* TimeTracerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF390F2D8AA679006A86A1 /* TimeTracerViewModel.swift */; };
 		5FAF39122D8AA74D006A86A1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF39112D8AA74D006A86A1 /* App.swift */; };
 		5FAF39142D8AA8AC006A86A1 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAF39132D8AA8AC006A86A1 /* AppView.swift */; };
+		5FCA83C22D8C4928006A4C33 /* Restriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA83C12D8C4928006A4C33 /* Restriction.swift */; };
+		5FCA83C42D8C49C3006A4C33 /* PomodoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA83C32D8C49C3006A4C33 /* PomodoroView.swift */; };
+		5FCA83C62D8C4C5A006A4C33 /* AddRestrictionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA83C52D8C4C5A006A4C33 /* AddRestrictionView.swift */; };
+		5FCA83C82D8C4FE4006A4C33 /* ScreenTimeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA83C72D8C4FE4006A4C33 /* ScreenTimeGraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		5FAF390F2D8AA679006A86A1 /* TimeTracerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracerViewModel.swift; sourceTree = "<group>"; };
 		5FAF39112D8AA74D006A86A1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		5FAF39132D8AA8AC006A86A1 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		5FCA83C12D8C4928006A4C33 /* Restriction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restriction.swift; sourceTree = "<group>"; };
+		5FCA83C32D8C49C3006A4C33 /* PomodoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroView.swift; sourceTree = "<group>"; };
+		5FCA83C52D8C4C5A006A4C33 /* AddRestrictionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestrictionView.swift; sourceTree = "<group>"; };
+		5FCA83C72D8C4FE4006A4C33 /* ScreenTimeGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeGraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				5FAF39112D8AA74D006A86A1 /* App.swift */,
+				5FCA83C12D8C4928006A4C33 /* Restriction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -148,6 +157,9 @@
 			children = (
 				5FAF38E42D8AA4AD006A86A1 /* ContentView.swift */,
 				5FAF39132D8AA8AC006A86A1 /* AppView.swift */,
+				5FCA83C32D8C49C3006A4C33 /* PomodoroView.swift */,
+				5FCA83C52D8C4C5A006A4C33 /* AddRestrictionView.swift */,
+				5FCA83C72D8C4FE4006A4C33 /* ScreenTimeGraphView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,7 +306,11 @@
 				5FAF39122D8AA74D006A86A1 /* App.swift in Sources */,
 				5FAF39102D8AA679006A86A1 /* TimeTracerViewModel.swift in Sources */,
 				5FAF39142D8AA8AC006A86A1 /* AppView.swift in Sources */,
+				5FCA83C22D8C4928006A4C33 /* Restriction.swift in Sources */,
+				5FCA83C62D8C4C5A006A4C33 /* AddRestrictionView.swift in Sources */,
+				5FCA83C82D8C4FE4006A4C33 /* ScreenTimeGraphView.swift in Sources */,
 				5FAF38E32D8AA4AD006A86A1 /* TimeTracerApp.swift in Sources */,
+				5FCA83C42D8C49C3006A4C33 /* PomodoroView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
