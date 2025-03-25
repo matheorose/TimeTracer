@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F57D8B82D8ECD1500CACD80 /* Restriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCA83C12D8C4928006A4C33 /* Restriction.swift */; };
 		5F828EB22D8DB6A800D1BE0A /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FCA83CF2D8C64E3006A4C33 /* WidgetKit.framework */; };
 		5F828EB32D8DB6A800D1BE0A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FCA83D12D8C64E3006A4C33 /* SwiftUI.framework */; };
 		5F828EB62D8DB6A800D1BE0A /* TimeTracerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F828EB52D8DB6A800D1BE0A /* TimeTracerWidgetBundle.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F9727442D8EBB7300CEC60B /* TimeTracerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeTracerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		5F828EB12D8DB6A800D1BE0A /* TimeTracerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimeTracerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F828EB52D8DB6A800D1BE0A /* TimeTracerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracerWidgetBundle.swift; sourceTree = "<group>"; };
 		5F828EB72D8DB6A800D1BE0A /* TimeTracerWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTracerWidgetLiveActivity.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		5FAF38D62D8AA4AD006A86A1 = {
 			isa = PBXGroup;
 			children = (
+				4F9727442D8EBB7300CEC60B /* TimeTracerWidgetExtension.entitlements */,
 				5FAF38E12D8AA4AD006A86A1 /* TimeTracer */,
 				5FAF38F22D8AA4AE006A86A1 /* TimeTracerTests */,
 				5FAF38FC2D8AA4AE006A86A1 /* TimeTracerUITests */,
@@ -406,6 +409,7 @@
 			files = (
 				5F828EB82D8DB6A800D1BE0A /* TimeTracerWidgetLiveActivity.swift in Sources */,
 				5F828EB62D8DB6A800D1BE0A /* TimeTracerWidgetBundle.swift in Sources */,
+				4F57D8B82D8ECD1500CACD80 /* Restriction.swift in Sources */,
 				5F828EBA2D8DB6A800D1BE0A /* TimeTracerWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,9 +473,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimeTracerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7YFJT26BW9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeTracerWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeTracerWidget;
@@ -496,9 +501,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimeTracerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7YFJT26BW9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeTracerWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TimeTracerWidget;
@@ -647,7 +653,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeTracer/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7YFJT26BW9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -678,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeTracer/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7YFJT26BW9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

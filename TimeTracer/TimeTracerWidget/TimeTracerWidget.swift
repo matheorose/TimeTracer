@@ -11,23 +11,47 @@ import SwiftUI
 struct ScreenTimeEntry: TimelineEntry {
     let date: Date
     let screenTime: String
-    let restrictions: [String]
+    let restrictions: [Restriction]
 }
 
-struct Provider: TimelineProvider {
+struct Provider: TimelineProvider{
+    
     func placeholder(in context: Context) -> ScreenTimeEntry {
-        ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: ["Pas TikTok", "Pas Insta"])
+        ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: [])
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (ScreenTimeEntry) -> Void) {
-        let entry = ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: ["Pas TikTok", "Pas Insta"])
+        let entry = loadEntry()
         completion(entry)
     }
-
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<ScreenTimeEntry>) -> Void) {
-        let entry = ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: ["Pas TikTok", "Pas Insta"])
-        let timeline = Timeline(entries: [entry], policy: .never)
+        let restrictions = loadSharedRestrictions()
+        let topRestrictions = Array(restrictions.prefix(2))
+        let entry = loadEntry()
+        let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(60 * 15)))
         completion(timeline)
+    }
+    
+    func loadEntry() -> ScreenTimeEntry {
+        let defaults = UserDefaults(suiteName: "group.com.tonapp.timetracer")
+        let seconds = defaults?.integer(forKey: "screenTimeToday") ?? 0
+        let restrictions = Array(loadSharedRestrictions().prefix(2))
+        
+        let formatted = "\(seconds / 3600)h \(seconds % 3600 / 60)min"
+        return ScreenTimeEntry(date: Date(), screenTime: formatted, restrictions: restrictions)
+
+    }
+    
+    func loadSharedRestrictions() -> [Restriction] {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.tonapp.screenTime")
+        
+        if let data = sharedDefaults?.data(forKey: "shared_restrictions"),
+           let decoded = try? JSONDecoder().decode([Restriction].self, from:data) {
+            return decoded
+        }
+        
+        return []
     }
 }
 
@@ -48,11 +72,11 @@ struct TimeTracerWidgetEntryView: View {
 
             Text("Restrictions")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .padding(.top, 4)
 
-            ForEach(entry.restrictions.prefix(2), id: \.self) { restriction in
-                Text("• \(restriction)")
-                    .font(.subheadline)
+            ForEach(Array(entry.restrictions.prefix(2))) { restriction in
+                Text("• \(restriction.name)(\(restriction.duration / 60) min)")
+                    .font(.caption2)
             }
 
             Spacer()
@@ -77,7 +101,7 @@ struct TimeTracerWidget: Widget {
 
 struct TimeTracerWidget_Previews: PreviewProvider {
     static var previews: some View {
-        TimeTracerWidgetEntryView(entry: ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: ["Pas TikTok", "Pas Insta"]))
+        TimeTracerWidgetEntryView(entry: ScreenTimeEntry(date: Date(), screenTime: "1h 30min", restrictions: []))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

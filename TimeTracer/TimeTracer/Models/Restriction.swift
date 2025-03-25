@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Restriction: Identifiable {
+struct Restriction: Identifiable, Codable {
     var id = UUID()
     var name: String
     var duration: Int // en secondes
