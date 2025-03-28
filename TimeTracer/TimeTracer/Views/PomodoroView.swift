@@ -74,6 +74,7 @@ struct PomodoroView: View {
         .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
         .onDisappear {
             timer?.invalidate()
+            timetracerVM.cancelPomodoroNotification()
         }
     }
 
@@ -82,6 +83,8 @@ struct PomodoroView: View {
         currentRestriction = restriction
         timerRemaining = restriction.duration
         isRunning = true
+        
+        timetracerVM.schedulePomodoroNotification(duration: restriction.duration)
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if let remaining = timerRemaining {
@@ -90,11 +93,10 @@ struct PomodoroView: View {
                 } else {
                     isRunning = false
                     timer?.invalidate()
-                    // Tu peux ajouter ici une alerte ou un son
-                    print("🔔 Temps écoulé pour \(restriction.name)")
                 }
             }
         }
+        timetracerVM.saveRestrictionsToSharedDefaults()
     }
 
     private func formatTime(_ totalSeconds: Int) -> String {

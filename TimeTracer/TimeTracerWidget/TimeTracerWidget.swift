@@ -45,12 +45,19 @@ struct Provider: TimelineProvider{
     
     func loadSharedRestrictions() -> [Restriction] {
         let sharedDefaults = UserDefaults(suiteName: "group.com.tonapp.screenTime")
-        
-        if let data = sharedDefaults?.data(forKey: "shared_restrictions"),
-           let decoded = try? JSONDecoder().decode([Restriction].self, from:data) {
-            return decoded
+
+        if let data = sharedDefaults?.data(forKey: "shared_restrictions") {
+            do {
+                let decoded = try JSONDecoder().decode([Restriction].self, from: data)
+                print("✅ Restrictions récupérées dans le widget : \(decoded)")
+                return decoded
+            } catch {
+                print("❌ Erreur de décodage des restrictions dans le widget : \(error)")
+            }
+        } else {
+            print("❌ Aucune donnée trouvée dans UserDefaults pour 'shared_restrictions'")
         }
-        
+
         return []
     }
 }

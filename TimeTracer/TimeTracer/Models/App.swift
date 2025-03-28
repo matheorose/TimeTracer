@@ -27,13 +27,13 @@ struct Application: Identifiable{
     
     static var testData: [Application] = [
             Application(logo: "logo-tiktok", title: "TikTok", dailyScreenTime: [
-                .mon: 3600, .tue: 2800, .wed: 1800, .thu: 4000, .fri: 3200, .sat: 4500, .sun: 2000
+                .mon: 3600, .tue: 2800, .wed: 1800, .thu: 4000, .fri: 3200, .sat: 0, .sun: 0
             ]),
             Application(logo: "logo-snapchat", title: "Snapchat", dailyScreenTime: [
-                .mon: 3000, .tue: 2000, .wed: 2400, .thu: 3200, .fri: 2900, .sat: 3600, .sun: 1800
+                .mon: 3000, .tue: 2000, .wed: 2400, .thu: 3200, .fri: 2900, .sat: 0, .sun: 0
             ]),
             Application(logo: "logo-instagram", title: "Instagram", dailyScreenTime: [
-                .mon: 1800, .tue: 2200, .wed: 2100, .thu: 2500, .fri: 2600, .sat: 2900, .sun: 1900
+                .mon: 1800, .tue: 2200, .wed: 2100, .thu: 2500, .fri: 2600, .sat: 0, .sun: 0
             ])
         ]
 }
