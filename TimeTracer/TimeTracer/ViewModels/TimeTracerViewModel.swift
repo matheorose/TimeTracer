@@ -20,7 +20,9 @@ class TimeTracerViewModel: ObservableObject {
         self.restrictions = Restriction.testData
         requestNotificationPermission()
     }
-    
+
+
+    //triage des apps dans la semaine
     func appsForWeek() -> [Application] {
         apps.sorted { app1, app2 in
             let total1 = WeekDay.allCases.reduce(0) { $0 + (app1.dailyScreenTime[$1] ?? 0) }
@@ -28,11 +30,13 @@ class TimeTracerViewModel: ObservableObject {
             return total1 > total2
         }
     }
-    
+
+    // temps total de l'app dans la semaine
     func totalTimeForApp(_ app: Application) -> Int {
         WeekDay.allCases.reduce(0) { $0 + (app.dailyScreenTime[$1] ?? 0) }
     }
-    
+
+
     func requestNotificationPermission() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -51,16 +55,16 @@ class TimeTracerViewModel: ObservableObject {
    func getTopRestrictions(limit: Int = 2) -> [Restriction] {
        return Array(restrictions.prefix(limit))
    }
-    
+
+    // temps des apps pour le jour séléctionné
     func appsForSelectedDay() -> [Application] {
         guard let selectedDay = selectedDay else { return [] }
         return apps.filter { ($0.dailyScreenTime[selectedDay] ?? 0) > 0 }
             .sorted { ($0.dailyScreenTime[selectedDay] ?? 0) > ($1.dailyScreenTime[selectedDay] ?? 0) }
     }
-    
+
     func totalTime(for day: WeekDay?) -> Int {
         guard let day = day else {
-            // Si aucun jour n'est sélectionné, retourner le total de la semaine
             return WeekDay.allCases.reduce(0) { $0 + totalTime(for: $1) }
         }
         return apps.reduce(0) { $0 + ($1.dailyScreenTime[day] ?? 0) }
@@ -71,7 +75,9 @@ class TimeTracerViewModel: ObservableObject {
         saveRestrictionsToSharedDefaults()
         
     }
-    
+
+
+    // Pas utilisé
     func saveRestrictionsToSharedDefaults(){
         let sharedDefaults = UserDefaults(suiteName: "group.com.tonapp.screenTime")
 
@@ -87,7 +93,8 @@ class TimeTracerViewModel: ObservableObject {
             userDefaults.synchronize()
         }
     }
-    
+
+    // planification de la notification pour une durée
     func schedulePomodoroNotification(duration: Int) {
         let content = UNMutableNotificationContent()
         content.title = "Temps de pause terminé !"
@@ -108,6 +115,10 @@ class TimeTracerViewModel: ObservableObject {
     func cancelPomodoroNotification() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["pomodoroEnd"])
     }
+
+
+    
+    // pas utilisé
     
     func syncWithWidget() {
         let defaults = UserDefaults(suiteName: "group.com.tonapp.timetracer")
@@ -122,9 +133,9 @@ class TimeTracerViewModel: ObservableObject {
             let encodedRestrictions = try JSONEncoder().encode(restrictions)
             sharedDefaults?.set(encodedRestrictions, forKey: "shared_restrictions")
             sharedDefaults?.synchronize()
-            print("🔄 Widget mis à jour avec \(restrictions.count) restrictions")
+            print(" Widget mis à jour avec \(restrictions.count) restrictions")
         } catch {
-            print("❌ Erreur lors de la mise à jour des restrictions pour le widget : \(error)")
+            print(" Erreur lors de la mise à jour des restrictions pour le widget : \(error)")
         }
         
         WidgetCenter.shared.reloadAllTimelines()
