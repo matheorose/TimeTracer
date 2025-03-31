@@ -11,13 +11,26 @@ import UserNotifications
 
 class TimeTracerViewModel: ObservableObject {
     @Published var apps: [Application] = []
-    @Published var selectedDay: WeekDay = .mon
+    @Published var selectedDay: WeekDay? = nil
     @Published var restrictions: [Restriction] = []
+    
     
     init() {
         self.apps = Application.testData
         self.restrictions = Restriction.testData
         requestNotificationPermission()
+    }
+    
+    func appsForWeek() -> [Application] {
+        apps.sorted { app1, app2 in
+            let total1 = WeekDay.allCases.reduce(0) { $0 + (app1.dailyScreenTime[$1] ?? 0) }
+            let total2 = WeekDay.allCases.reduce(0) { $0 + (app2.dailyScreenTime[$1] ?? 0) }
+            return total1 > total2
+        }
+    }
+    
+    func totalTimeForApp(_ app: Application) -> Int {
+        WeekDay.allCases.reduce(0) { $0 + (app.dailyScreenTime[$1] ?? 0) }
     }
     
     func requestNotificationPermission() {
@@ -39,13 +52,18 @@ class TimeTracerViewModel: ObservableObject {
        return Array(restrictions.prefix(limit))
    }
     
-    func totalTime(for day: WeekDay) -> Int {
-        apps.reduce(0) { $0 + ($1.dailyScreenTime[day] ?? 0) }
+    func appsForSelectedDay() -> [Application] {
+        guard let selectedDay = selectedDay else { return [] }
+        return apps.filter { ($0.dailyScreenTime[selectedDay] ?? 0) > 0 }
+            .sorted { ($0.dailyScreenTime[selectedDay] ?? 0) > ($1.dailyScreenTime[selectedDay] ?? 0) }
     }
     
-    func appsForSelectedDay() -> [Application] {
-        apps.filter { ($0.dailyScreenTime[selectedDay] ?? 0) > 0 }
-            .sorted { ($0.dailyScreenTime[selectedDay] ?? 0) > ($1.dailyScreenTime[selectedDay] ?? 0) }
+    func totalTime(for day: WeekDay?) -> Int {
+        guard let day = day else {
+            // Si aucun jour n'est sélectionné, retourner le total de la semaine
+            return WeekDay.allCases.reduce(0) { $0 + totalTime(for: $1) }
+        }
+        return apps.reduce(0) { $0 + ($1.dailyScreenTime[day] ?? 0) }
     }
     
     func addRestriction(_ restriction: Restriction) {

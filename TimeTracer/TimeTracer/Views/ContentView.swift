@@ -14,11 +14,16 @@ struct ContentView: View {
     let currentDay = WeekDay.fromDate(Date())
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     
+                    // Nouvelle section pour le temps moyen hebdomadaire
+                    WeeklyAverageView()
+                        .padding(.horizontal)
+                    
                     ScreenTimeGraphView()
+                    
                     // Les plus utilisés
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Les plus utilisés")
@@ -27,7 +32,9 @@ struct ContentView: View {
                             .padding(.horizontal)
 
                         VStack(spacing: 12) {
-                            ForEach(timetracerVM.apps) { app in
+                            ForEach(timetracerVM.selectedDay == nil ?
+                                    timetracerVM.appsForWeek() :
+                                    timetracerVM.appsForSelectedDay()) { app in
                                 AppView(app: app)
                                     .environmentObject(timetracerVM)
                             }
@@ -50,8 +57,57 @@ struct ContentView: View {
     }
 }
 
+// Nouvelle vue pour l'affichage du temps moyen hebdomadaire
+struct WeeklyAverageView: View {
+    @EnvironmentObject var timetracerVM: TimeTracerViewModel
+    
+    var body: some View {
+        let weeklyAverage = calculateWeeklyAverage()
+        
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Moyenne de la semaine")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                Text("\(weeklyAverage.hours)h \(weeklyAverage.minutes)min")
+                    .font(.title)
+                    .bold()
+                
+                Text("sur \(weeklyAverage.daysCount) jours")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+    }
+    
+    private func calculateWeeklyAverage() -> (hours: Int, minutes: Int, daysCount: Int) {
+        var totalSeconds = 0
+        var activeDaysCount = 0
+        
+        for day in WeekDay.allCases {
+            let daySeconds = timetracerVM.totalTime(for: day)
+            if daySeconds > 0 {
+                totalSeconds += daySeconds
+                activeDaysCount += 1
+            }
+        }
+        
+        // Au minimum 1 pour éviter la division par 0
+        let divisor = max(1, activeDaysCount)
+        let averageSeconds = totalSeconds / divisor
+        
+        return (averageSeconds / 3600, (averageSeconds % 3600) / 60, activeDaysCount)
+    }
+}
+
 #Preview {
     ContentView()
         .environmentObject(TimeTracerViewModel())
 }
-

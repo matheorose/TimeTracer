@@ -24,10 +24,13 @@ struct AppView: View {
             
             Spacer()
             
-            if let seconds = app.dailyScreenTime[timetracerVM.selectedDay] {
-                Text("\(seconds / 3600)h \(seconds % 3600 / 60)min")
-                    .foregroundColor(.gray)
-                    .font(.subheadline)
+            if let selectedDay = timetracerVM.selectedDay {
+                if let seconds = app.dailyScreenTime[selectedDay] {
+                    Text(formattedScreenTime(for: seconds))
+                }
+            } else {
+                let totalSeconds = WeekDay.allCases.reduce(0) { $0 + (app.dailyScreenTime[$1] ?? 0) }
+                Text(formattedScreenTime(for: totalSeconds))
             }
         }
         .padding(.vertical, 8)
@@ -35,7 +38,6 @@ struct AppView: View {
         .background(Color(.systemGray6))
         .cornerRadius(15)
     }
-    
     private func formattedScreenTime(for seconds: Int) -> String {
         let hours = seconds / 3600
         let minutes = (seconds % 3600) / 60

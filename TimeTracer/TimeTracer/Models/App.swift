@@ -34,6 +34,12 @@ struct Application: Identifiable{
             ]),
             Application(logo: "logo-instagram", title: "Instagram", dailyScreenTime: [
                 .mon: 1800, .tue: 2200, .wed: 2100, .thu: 2500, .fri: 2600, .sat: 0, .sun: 0
+            ]),
+            Application(logo: "logo-linkedin", title: "Linkedin", dailyScreenTime: [
+                .mon: 1400, .tue: 800, .wed: 2300, .thu: 2000, .fri: 2700, .sat: 0, .sun: 0
+            ]),
+            Application(logo: "logo-youtube", title: "Youtube", dailyScreenTime: [
+                .mon: 1000, .tue: 2300, .wed: 2000, .thu: 2200, .fri: 2400, .sat: 0, .sun: 0
             ])
         ]
 }
