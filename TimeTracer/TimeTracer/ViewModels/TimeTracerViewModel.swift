@@ -31,7 +31,7 @@ class TimeTracerViewModel: ObservableObject {
         }
     }
 
-    // temps total de l'app dans la semaine
+    // pas utilisé
     func totalTimeForApp(_ app: Application) -> Int {
         WeekDay.allCases.reduce(0) { $0 + (app.dailyScreenTime[$1] ?? 0) }
     }

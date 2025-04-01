@@ -28,7 +28,7 @@ struct ScreenTimeGraphView: View {
                             .onTapGesture {
                                 withAnimation {
                                     if timetracerVM.selectedDay == day {
-                                        timetracerVM.selectedDay = nil // Désélection si on clique sur le jour déjà sélectionné
+                                        timetracerVM.selectedDay = nil 
                                     } else {
                                         timetracerVM.selectedDay = day
                                     }
@@ -61,7 +61,6 @@ struct ScreenTimeGraphView: View {
         .cornerRadius(20)
         .padding(.horizontal)
         .onTapGesture {
-            // Désélectionner quand on clique à côté des barres
             withAnimation {
                 timetracerVM.selectedDay = nil
             }

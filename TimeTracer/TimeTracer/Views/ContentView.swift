@@ -17,8 +17,7 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
-                    
-                    // Nouvelle section pour le temps moyen hebdomadaire
+                
                     WeeklyAverageView()
                         .padding(.horizontal)
                     
@@ -57,7 +56,7 @@ struct ContentView: View {
     }
 }
 
-// Nouvelle vue pour l'affichage du temps moyen hebdomadaire
+
 struct WeeklyAverageView: View {
     @EnvironmentObject var timetracerVM: TimeTracerViewModel
     
@@ -99,7 +98,6 @@ struct WeeklyAverageView: View {
             }
         }
         
-        // Au minimum 1 pour éviter la division par 0
         let divisor = max(1, activeDaysCount)
         let averageSeconds = totalSeconds / divisor
         
